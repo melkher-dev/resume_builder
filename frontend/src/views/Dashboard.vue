@@ -1,7 +1,7 @@
 <template>
     <div>
         <main-layout/>
-zolupa
+kek
     </div>
 </template>
 

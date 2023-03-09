@@ -22,8 +22,13 @@ const form = reactive({
     password: ''
 })
 
+const getToken = async () => {
+    await axios.get('/sanctum/csrf-cookie')
+}
+
 const login = async () => {
-    const response = await axios.post('/login', form);
+    await getToken()
+    const response = await axios.post('http://localhost/login', form);
     localStorage.setItem('token', response.data.token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
