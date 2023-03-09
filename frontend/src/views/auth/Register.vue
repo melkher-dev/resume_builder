@@ -29,12 +29,12 @@ const form = reactive({
 })
 
 const getToken = async () => {
-    await axios.get('http://localhost/sanctum/csrf-cookie')
+    await axios.get('/sanctum/csrf-cookie')
 }
 
 const register = async () => {
     await getToken()
-    await axios.post('http://localhost/register', form);
+    await axios.post('/register', form);
 
     await router.push('/login');
 }

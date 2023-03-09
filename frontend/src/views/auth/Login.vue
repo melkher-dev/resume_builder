@@ -23,11 +23,11 @@ const form = reactive({
 })
 
 const login = async () => {
-    const response = await axios.post('http://localhost/login', form);
+    const response = await axios.post('/login', form);
     localStorage.setItem('token', response.data.token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 
-    await router.push('/home');
+    await router.push('/dashboard');
 }
 
 </script>
