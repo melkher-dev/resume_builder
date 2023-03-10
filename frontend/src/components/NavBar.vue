@@ -48,44 +48,38 @@
             </ul> -->
         </div>
         <div class="navbar-end">
-            <router-link to="/login" class="nav-link m-2">Login</router-link>
-            <router-link to="/register" class="nav-link m-2">Register</router-link>
-            <button @click="logout" class="nav-link m-2">Logout</button>
+            <div v-if="!user">
+                <router-link to="/login" class="nav-link m-2">Login</router-link>
+                <router-link to="/register" class="nav-link m-2">Register</router-link>
+            </div>
+            <div class="grid grid-cols-2">
+                <p class="mt-2">{{ user.name }}</p>
+                <button @click="logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
+            </div>
         </div>
     </div>
-
-    <!-- <div>
-        <nav class="bg-white border-gray-200 px-2 sm:px-4 py-2.5 rounded dark:bg-gray-900">
-            <div class="container flex flex-wrap items-center justify-between mx-auto">
-                <div class="navbar bg-base-100 w-full">
-                    <div class="flex-1">
-                        <a class="btn btn-ghost normal-case text-xl">daisyUI</a>
-                    </div>
-                    <div class="float-right">
-                        <ul class="menu menu-horizontal px-1 navbar-end">
-                            <li>
-                                <router-link to="/login" class="nav-link" href="#">Login</router-link>
-                            </li>
-                            <li>
-                                <router-link to="/register" class="nav-link" href="#">Register</router-link>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </nav>
-    </div> -->
 </template>
 
 <script setup lang="ts">
 import { RouterLink } from 'vue-router';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
+import { onMounted } from 'vue';
+import { ref } from 'vue';
 
 const router = useRouter();
+
+const user = ref({});
 
 const logout = async () => {
     await axios.post('http://localhost/logout');
     await router.push('/login');
 }
+
+onMounted(async () => {
+    const { data } = await axios.get('/api/user');
+    user.value = data;
+    console.log('user.value :>> ', user.value);
+});
+
 </script>
