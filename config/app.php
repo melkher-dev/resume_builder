@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Facade;
 
 return [
 
+    'open_ai_api_key' =>env('OPEN_AI_API_KEY'),
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
