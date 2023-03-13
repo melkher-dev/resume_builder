@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Attribute;
+use App\UuidTrait;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -10,6 +11,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Resume extends Model
 {
     use HasFactory;
+    use UuidTrait;
 
     protected $guarded = ['id'];
 
@@ -17,15 +19,22 @@ class Resume extends Model
         'companies' => 'array',
     ];
 
-    // /**
-    //  *
-    //  * @return \Illuminate\Database\Eloquent\Casts\Attribute
-    //  */
-    // protected function companies(): Attribute
-    // {
-    //     return Attribute::make(
-    //         get: fn ($value) => json_decode($value, true),
-    //         set: fn ($value) => json_encode($value),
-    //     );
-    // }
+    /**
+     * keyType
+     *
+     * @var string
+     */
+    protected $keyType = 'string';
+
+    /**
+     * incrementing
+     *
+     * @var bool
+     */
+    public $incrementing = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

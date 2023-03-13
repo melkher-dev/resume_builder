@@ -112,6 +112,7 @@ import { useRouter } from "vue-router"
 const router = useRouter()
 
 let image = ref('');
+let resume_id = ref('');
 
 const form = reactive({
     full_name: '',
@@ -142,10 +143,11 @@ const handleFileUpload = async (event: any) => {
     form.image_path = response.data
 }
 
+//send resume and get response data
 const sendResume = async () => {
-    await axios.post('/api/resume', form)
-
-    router.push('/resume')
+    const response = await axios.post('/api/resume', form)
+    resume_id.value = response.data
+    router.push(`/resume/${resume_id.value}`)
 }
 
 const addCompany = () => {

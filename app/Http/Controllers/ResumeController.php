@@ -40,7 +40,7 @@ class ResumeController extends Controller
      */
     public function show(Resume $resume)
     {
-        
+        $resume = Resume::find($resume->id);
     }
 
     /**
@@ -117,6 +117,8 @@ class ResumeController extends Controller
         $newResume->job_responsibilities = $jobResponsibilitiesResult;
         $newResume->job_achievements = $jobAchievementsResult;
         $newResume->save();
+
+        return $newResume->id;
     }
 
     /**

@@ -21,3 +21,4 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::post('/resume', [ResumeController::class, 'resume'])->name('resume');
 Route::post('/upload', [ResumeController::class, 'upload'])->name('upload');
+Route::post('/resume/{resume}', [ResumeController::class, 'show'])->name('show.resume');
