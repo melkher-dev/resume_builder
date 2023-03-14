@@ -38,9 +38,11 @@ class ResumeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Resume $resume)
+    public function show($id)
     {
-        $resume = Resume::find($resume->id);
+        $resume = Resume::find($id);
+
+        return $resume;
     }
 
     /**

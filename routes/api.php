@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ResumeController;
 
 /*
@@ -21,4 +22,6 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 
 Route::post('/resume', [ResumeController::class, 'resume'])->name('resume');
 Route::post('/upload', [ResumeController::class, 'upload'])->name('upload');
-Route::post('/resume/{resume}', [ResumeController::class, 'show'])->name('show.resume');
+Route::get('/resume/show/{id}', [ResumeController::class, 'show'])->name('resume.show');
+
+Route::get('/images/{filename}', [ImageController::class, 'show'])->name('images.show');
