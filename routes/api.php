@@ -20,8 +20,11 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::post('/resume', [ResumeController::class, 'resume'])->name('resume');
-Route::post('/upload', [ResumeController::class, 'upload'])->name('upload');
-Route::get('/resume/show/{id}', [ResumeController::class, 'show'])->name('resume.show');
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/resumes', [ResumeController::class, 'index'])->name('resumes');
+    Route::post('/resume', [ResumeController::class, 'resume'])->name('resume');
+    Route::post('/upload', [ResumeController::class, 'upload'])->name('upload');
+    Route::get('/resume/show/{id}', [ResumeController::class, 'show'])->name('resume.show');
 
-Route::get('/images/{filename}', [ImageController::class, 'show'])->name('images.show');
+    Route::get('/images/{filename}', [ImageController::class, 'show'])->name('images.show');
+});

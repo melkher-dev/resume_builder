@@ -1,101 +1,36 @@
 <template>
     <div>
         <main-layout />
-        <div class="flex justify-center mt-2 mx-5">
-            <div class="card w-2/3 bg-base-100 shadow-xl">
-                <div class="card-body">
-                    <div class="card-actions justify-center">
-                        <h1>
-                            <strong>
-                                Resume Builder
-                            </strong>
-                        </h1>
-                    </div>
-                    <div class="mx-1">
-                        <label class="label">
-                            <span class="label-text">Enter your full name</span>
-                        </label>
-                        <input v-model="form.full_name" type="text" class="input input-bordered input-primary w-full" />
-                    </div>
-                    <div class="mx-1">
-                        <label class="label">
-                            <span class="label-text">Enter your full email</span>
-                        </label>
-                        <input v-model="form.email" type="email" class="input input-bordered input-primary w-full" />
-                    </div>
-                    <div class="grid grid-cols-3">
-                        <div class="mx-1">
-                            <label class="label">
-                                <span class="label-text">Current position</span>
-                            </label>
-                            <input v-model="form.current_position" type="text"
-                                class="input input-bordered input-primary w-full max-w-xs" />
-                        </div>
-                        <div class="mx-1">
-                            <label class="label">
-                                <span class="label-text">For how long?(years)</span>
-                            </label>
-                            <input v-model="form.experience" type="text"
-                                class="input input-bordered input-primary w-full max-w-xs" />
-                        </div>
-                        <div class="mx-1">
-                            <label class="label">
-                                <span class="label-text">Technologies used</span>
-                            </label>
-                            <input v-model="form.technologies" type="text"
-                                class="input input-bordered input-primary w-full max-w-xs" />
-                        </div>
-                    </div>
-                    <div class="mx-1">
-                        <label class="label">
-                            <span class="label-text">Upload your image</span>
-                        </label>
-                        <input v-on:change="handleFileUpload" type="file"
-                            class="file-input file-input-bordered file-input-primary w-full max-w-xs" />
-                        <!-- <button @click="getFilePath" class="btn btn-primary btn-outline btn-sm mx-2">Add file</button> -->
-                    </div>
-                    <div>
-                        <h1><strong>Companies you worked at</strong></h1>
-                    </div>
 
-                    <div>
-                        <div v-for="(company, index) in form.companies" :key="index" class="grid grid-cols-5">
-                            <div class="col-span-2 mx-2">
-                                <label class="label">
-                                    <span class="label-text">Company name</span>
-                                </label>
-                                <input v-model="company.company_name" type="text"
-                                    class="input input-bordered input-primary w-full max-w-lg" />
-                            </div>
-                            <div class="col-span-2 mx-2">
-                                <label class="label">
-                                    <span class="label-text">Position held</span>
-                                </label>
-                                <input v-model="company.position_held" type="text"
-                                    class="input input-bordered input-primary w-full max-w-lg" />
-                            </div>
-                            <div class="col-span-1">
-                                <div class="grid mx-2 mt-7">
-                                    <label class="label">
-                                        <span class="label-text"></span>
-                                    </label>
-                                    <div>
-                                        <button v-if="index !== form.companies.length - 1" @click="removeCompany(index)"
-                                            class="btn btn-error btn-sm w-full">Delete</button>
-                                    </div>
+        <div v-if="isLoading" class="flex justify-center">
+            <svg aria-hidden="true" class="w-8 h-8 mr-2 text-gray-200 animate-spin dark:text-gray-600 fill-blue-600"
+                viewBox="0 0 100 101" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                    d="M100 50.5908C100 78.2051 77.6142 100.591 50 100.591C22.3858 100.591 0 78.2051 0 50.5908C0 22.9766 22.3858 0.59082 50 0.59082C77.6142 0.59082 100 22.9766 100 50.5908ZM9.08144 50.5908C9.08144 73.1895 27.4013 91.5094 50 91.5094C72.5987 91.5094 90.9186 73.1895 90.9186 50.5908C90.9186 27.9921 72.5987 9.67226 50 9.67226C27.4013 9.67226 9.08144 27.9921 9.08144 50.5908Z"
+                    fill="currentColor" />
+                <path
+                    d="M93.9676 39.0409C96.393 38.4038 97.8624 35.9116 97.0079 33.5539C95.2932 28.8227 92.871 24.3692 89.8167 20.348C85.8452 15.1192 80.8826 10.7238 75.2124 7.41289C69.5422 4.10194 63.2754 1.94025 56.7698 1.05124C51.7666 0.367541 46.6976 0.446843 41.7345 1.27873C39.2613 1.69328 37.813 4.19778 38.4501 6.62326C39.0873 9.04874 41.5694 10.4717 44.0505 10.1071C47.8511 9.54855 51.7191 9.52689 55.5402 10.0491C60.8642 10.7766 65.9928 12.5457 70.6331 15.2552C75.2735 17.9648 79.3347 21.5619 82.5849 25.841C84.9175 28.9121 86.7997 32.2913 88.1811 35.8758C89.083 38.2158 91.5421 39.6781 93.9676 39.0409Z"
+                    fill="currentFill" />
+            </svg>
+        </div>
 
-                                    <div class="">
-                                        <div v-if="form.companies.length - 1 === index && form.companies.length <= 3">
-                                            <button @click="addCompany" class="btn btn-success btn-sm w-full">Add</button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+        <div v-else>
+            <div class="flex justify-center m-5">
+                <a href="/resume-builder" class="btn btn-primary btn-outline btn-sm">Create new resume</a>
+            </div>
+            <div class="grid grid-cols-4 mx-5">
+                <div class="card w-full bg-base-100 shadow-xl" style="width:18rem" v-for="resume in resumes"
+                    :key="resume.id">
+                    <figure><img style="width: 100px; height: 100px;"
+                            :src="`http://localhost/storage/${resume.image_path}`" />
+                    </figure>
+                    <div class="card-body">
+                        <h2 class="card-title">{{ resume.full_name }}</h2>
+                        <p>Technologies: {{ resume.technologies }}</p>
+                        <p>Company: {{ resume.companies[0].company_name }}</p>
+                        <div class="card-actions justify-center">
+                            <a :href="`/resume/${resume.id}`" class="btn btn-primary btn-outline btn-sm">More</a>
                         </div>
-
-                    </div>
-                    <div class="card-actions justify-center mt-3">
-                        <button @click="sendResume" class="btn btn-primary btn-sm w-full">Load</button>
                     </div>
                 </div>
             </div>
@@ -104,61 +39,22 @@
 </template>
 
 <script setup lang="ts">
-import MainLayout from "./layouts/MainLayout.vue"
-import { reactive, ref } from 'vue'
-import axios from 'axios'
-import { useRouter } from "vue-router"
+import MainLayout from './layouts/MainLayout.vue';
+import axios from 'axios';
+import { onMounted, ref } from 'vue';
 
-const router = useRouter()
+let resumes = ref({});
+let isLoading = ref(true);
 
-let image = ref('');
-let resume_id = ref('');
-
-const form = reactive({
-    full_name: '',
-    email: '',
-    current_position: '',
-    experience: '',
-    technologies: '',
-    image_path: '',
-    companies: [{
-        company_name: '',
-        position_held: ''
-    }],
-})
-
-const handleFileUpload = async (event: any) => {
-    const file = event.target.files[0]
-    image.value = file
-
-    const formData = new FormData()
-    formData.append('image', image.value)
-
-    const response = await axios.post('/api/upload', formData, {
-        headers: {
-            'Content-Type': 'multipart/form-data'
-        }
-    })
-
-    form.image_path = response.data
-}
-
-//send resume and get response data
-const sendResume = async () => {
-    const response = await axios.post('/api/resume', form)
-    resume_id.value = response.data
-    router.push(`/resume/${resume_id.value}`)
-}
-
-const addCompany = () => {
-    form.companies.push({
-        company_name: '',
-        position_held: ''
-    })
-}
-
-const removeCompany = (index: number) => {
-    form.companies.splice(index, 1)
-}
+const getResumes = async () => {
+    const { data } = await axios.get('/api/resumes');
+    resumes.value = data;
+};
+onMounted(async () => {
+    isLoading.value = true;
+    const { data } = await axios.get('/api/resumes');
+    resumes.value = data;
+    isLoading.value = false;
+});
 
 </script>

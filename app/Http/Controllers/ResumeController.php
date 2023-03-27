@@ -16,7 +16,9 @@ class ResumeController extends Controller
      */
     public function index()
     {
-        //
+        $resumes = Resume::all();
+
+        return $resumes;
     }
 
     /**
@@ -132,7 +134,10 @@ class ResumeController extends Controller
      */
     public function upload(Request $request)
     {
-        $path = $request->file('image')->store('uploads');
+        $path = $request->file('image')->store('public/uploads');
+
+        // remove public from $path
+        $path = str_replace('public', '', $path);
 
         return $path;
     }

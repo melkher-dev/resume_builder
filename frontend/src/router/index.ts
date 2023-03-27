@@ -4,6 +4,7 @@ import Login from '../views/auth/Login.vue'
 import Register from '../views/auth/Register.vue'
 import Dashboard from '@/views/Dashboard.vue'
 import Resume from '@/views/Resume.vue'
+import ResumeBuilder from '@/views/ResumeBuilder.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component:Dashboard
+    },
+    {
+      path: '/resume-builder',
+      name: 'resume-builder',
+      component:ResumeBuilder
     },
     {
       path: '/resume/:id',

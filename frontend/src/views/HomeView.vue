@@ -6,7 +6,7 @@ import MainLayout from './layouts/MainLayout.vue';
   <div>
     <main-layout />
 
-    <div>
+    <div class="flex justify-center">
       home page
     </div>
   </div>

@@ -37,7 +37,7 @@ const getToken = async () => {
 
 const login = async () => {
     await getToken()
-    const response = await axios.post('http://localhost/login', form);
+    const response = await axios.post('/login', form);
     localStorage.setItem('token', response.data.token);
     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`;
 

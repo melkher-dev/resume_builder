@@ -52,8 +52,9 @@
                 <router-link to="/login" class="nav-link m-2">Login</router-link>
                 <router-link to="/register" class="nav-link m-2">Register</router-link>
             </div>
-            <div class="grid grid-cols-2">
-                <p class="mt-2">{{ user.name }}</p>
+            <div class="grid grid-cols-3">
+                <router-link to="/dashboard" class="nav-link m-2">Dashboard</router-link>
+                <p class="mt-2">{{ user?.name }}</p>
                 <button @click="logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
             </div>
         </div>
@@ -66,13 +67,14 @@ import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
 import { ref } from 'vue';
+import type { User } from '../types/user.interface';
 
 const router = useRouter();
 
-const user = ref({});
+const user = ref<User | null>(null);
 
 const logout = async () => {
-    await axios.post('http://localhost/logout');
+    await axios.post('/logout');
     await router.push('/login');
 }
 
