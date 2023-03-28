@@ -10,7 +10,7 @@
                     class="input input-bordered input-primary w-full max-w-xs" />
                 <input v-model="form.password_confirmation" type="password" placeholder="Password Confirmation"
                     class="input input-bordered input-primary w-full max-w-xs" />
-                <button @click="authStore.register(form)" class="btn btn-outline btn-primary btn-sm">Register</button>
+                <button @click="handleRegister(form)" class="btn btn-outline btn-primary btn-sm">Register</button>
             </div>
         </div>
     </div>
@@ -28,4 +28,8 @@ const form = ref({
     password: '',
     password_confirmation: ''
 })
+
+const handleRegister = (form) => {
+    authStore.register(form)
+}
 </script>

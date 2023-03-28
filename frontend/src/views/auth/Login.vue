@@ -15,7 +15,7 @@
                 <div class="form-control">
                     <router-link to="/register" class="btn btn-primary btn-outline btn-sm nav-link">Register</router-link>
                 </div>
-                <button @click="authStore.login(form)" class="btn btn-outline btn-primary btn-sm">Login</button>
+                <button @click="handleLogin(form)" class="btn btn-outline btn-primary btn-sm">Login</button>
             </div>
         </div>
     </div>
@@ -33,4 +33,8 @@ const form = ref({
     password: '',
     remember: false
 })
+
+const handleLogin = (form) => {
+    authStore.login(form)
+}
 </script>
