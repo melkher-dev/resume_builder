@@ -49,11 +49,11 @@
         </div>
         <div class="navbar-end">
             <div v-if="!user">
-                <router-link to="/login" class="nav-link m-2">Login</router-link>
-                <router-link to="/register" class="nav-link m-2">Register</router-link>
+                <router-link to="/login" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Login</router-link>
+                <router-link to="/register" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Register</router-link>
             </div>
             <div class="grid grid-cols-3">
-                <router-link to="/dashboard" class="nav-link m-2">Dashboard</router-link>
+                <router-link to="/dashboard" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Dashboard</router-link>
                 <p class="mt-2">{{ user?.name }}</p>
                 <button @click="logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
             </div>

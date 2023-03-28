@@ -29,7 +29,7 @@
                         <p>Technologies: {{ resume.technologies }}</p>
                         <p>Company: {{ resume.companies[0].company_name }}</p>
                         <div class="card-actions justify-center">
-                            <a :href="`/resume/${resume.id}`" class="btn btn-primary btn-outline btn-sm">More</a>
+                            <router-link :to="`/resume/${resume.id}`" class="btn btn-primary btn-outline btn-sm nav-link">More</router-link>
                         </div>
                     </div>
                 </div>
@@ -39,6 +39,7 @@
 </template>
 
 <script setup lang="ts">
+import { RouterLink } from 'vue-router';
 import MainLayout from './layouts/MainLayout.vue';
 import axios from 'axios';
 import { onMounted, ref } from 'vue';
