@@ -48,14 +48,14 @@
             </ul> -->
         </div>
         <div class="navbar-end">
-            <div v-if="!user">
+            <div class="grid grid-cols-3" v-if="authStore.user">
+                <p class="mt-2">{{ authStore.user.name }}</p>
+                <router-link to="/dashboard" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Dashboard</router-link>
+                <button @click="logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
+            </div>
+            <div v-else>
                 <router-link to="/login" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Login</router-link>
                 <router-link to="/register" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Register</router-link>
-            </div>
-            <div class="grid grid-cols-3">
-                <router-link to="/dashboard" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Dashboard</router-link>
-                <p class="mt-2">{{ user?.name }}</p>
-                <button @click="logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
             </div>
         </div>
     </div>
@@ -66,12 +66,11 @@ import { RouterLink } from 'vue-router';
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { onMounted } from 'vue';
-import { ref } from 'vue';
-import type { User } from '../types/user.interface';
+import { useAuthStore } from '../stores/auth';
+
+const authStore = useAuthStore();
 
 const router = useRouter();
-
-const user = ref<User | null>(null);
 
 const logout = async () => {
     await axios.post('/logout');
@@ -79,9 +78,7 @@ const logout = async () => {
 }
 
 onMounted(async () => {
-    const { data } = await axios.get('/api/user');
-    user.value = data;
-    console.log('user.value :>> ', user.value);
+    await authStore.getUser();
 });
 
 </script>
