@@ -101,8 +101,11 @@
                         </div>
 
                     </div>
-                    <div class="card-actions justify-center mt-3">
+                    <div v-if="!isDisabled" class="card-actions justify-center mt-3">
                         <button @click="sendResume" class="btn btn-primary btn-sm w-full">Load</button>
+                    </div>
+                    <div v-else class="card-actions justify-center mt-3">
+                        <button class="btn btn-primary btn-sm w-full" disabled>Load</button>
                     </div>
                 </div>
             </div>
@@ -117,6 +120,8 @@ import axios from 'axios'
 import { useRouter } from "vue-router"
 
 const router = useRouter()
+
+let isDisabled = ref(false);
 
 let image = ref('');
 let resume_id = ref('');
@@ -152,6 +157,7 @@ const handleFileUpload = async (event: any) => {
 }
 
 const sendResume = async () => {
+    isDisabled.value = true
     try {
         const response = await axios.post('/api/resume', form)
         resume_id.value = response.data

@@ -10,7 +10,12 @@
                     class="input input-bordered input-primary w-full max-w-xs" />
                 <input v-model="form.password_confirmation" type="password" placeholder="Password Confirmation"
                     class="input input-bordered input-primary w-full max-w-xs" />
-                <button @click="handleRegister(form)" class="btn btn-outline btn-primary btn-sm">Register</button>
+                <div class="form-control" v-if="!isDisabled">
+                    <button @click="handleRegister(form)" class="btn btn-outline btn-primary btn-sm">Register</button>
+                </div>
+                <div v-else class="form-control">
+                    <button class="btn btn-outline btn-primary btn-sm" disabled>Register</button>
+                </div>
             </div>
         </div>
     </div>
@@ -22,6 +27,8 @@ import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 
+let isDisabled = ref(false);
+
 const form = ref({
     name: '',
     email: '',
@@ -30,6 +37,7 @@ const form = ref({
 })
 
 const handleRegister = (form) => {
+    isDisabled.value = true
     authStore.register(form)
 }
 </script>

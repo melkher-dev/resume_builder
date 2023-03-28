@@ -13,9 +13,14 @@
                     </label>
                 </div>
                 <div class="form-control">
-                    <router-link to="/register" class="btn btn-primary btn-outline btn-sm nav-link">Register</router-link>
+                    <router-link to="/register" class="btn btn-ghost btn-outline btn-sm nav-link">Register</router-link>
                 </div>
-                <button @click="handleLogin(form)" class="btn btn-outline btn-primary btn-sm">Login</button>
+                <div class="form-control" v-if="!isDisabled">
+                    <button @click="handleLogin(form)" class="btn btn-outline btn-primary btn-sm">Login</button>
+                </div>
+                <div class="form-control" v-else>
+                    <button class="btn btn-outline btn-primary btn-sm" disabled>Login</button>
+                </div>
             </div>
         </div>
     </div>
@@ -28,6 +33,8 @@ import { useAuthStore } from '@/stores/auth'
 
 const authStore = useAuthStore()
 
+let isDisabled = ref(false);
+
 const form = ref({
     email: '',
     password: '',
@@ -35,6 +42,7 @@ const form = ref({
 })
 
 const handleLogin = (form) => {
+    isDisabled.value = true
     authStore.login(form)
 }
 </script>
