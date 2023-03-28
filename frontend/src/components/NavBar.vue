@@ -51,7 +51,7 @@
             <div class="grid grid-cols-3" v-if="authStore.user">
                 <p class="mt-2">{{ authStore.user.name }}</p>
                 <router-link to="/dashboard" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Dashboard</router-link>
-                <button @click="logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
+                <button @click="authStore.logout" class="btn btn-outline btn-ghost btn-sm m-2">Logout</button>
             </div>
             <div v-else>
                 <router-link to="/login" class="btn btn-ghost btn-outline btn-sm nav-link m-2">Login</router-link>
@@ -71,11 +71,6 @@ import { useAuthStore } from '../stores/auth';
 const authStore = useAuthStore();
 
 const router = useRouter();
-
-const logout = async () => {
-    await axios.post('/logout');
-    await router.push('/login');
-}
 
 onMounted(async () => {
     await authStore.getUser();

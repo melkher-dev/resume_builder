@@ -2,43 +2,30 @@
     <div class="flex justify-center m-5">
         <div class="card w-96 bg-base-100 shadow-xl">
             <div class="card-body">
-                <input v-model="form.name" type="text" placeholder="Type here"
+                <input v-model="form.name" type="text" placeholder="Name"
                     class="input input-bordered input-primary w-full max-w-xs" />
-                <input v-model="form.email" type="email" placeholder="Type here"
+                <input v-model="form.email" type="email" placeholder="Email"
                     class="input input-bordered input-primary w-full max-w-xs" />
-                <input v-model="form.password" type="password" placeholder="Type here"
+                <input v-model="form.password" type="password" placeholder="Password"
                     class="input input-bordered input-primary w-full max-w-xs" />
-                <input v-model="form.password_confirmation" type="password" placeholder="Type here"
+                <input v-model="form.password_confirmation" type="password" placeholder="Password Confirmation"
                     class="input input-bordered input-primary w-full max-w-xs" />
-                <button @click="register" class="btn btn-outline btn-primary btn-sm">Register</button>
+                <button @click="authStore.register(form)" class="btn btn-outline btn-primary btn-sm">Register</button>
             </div>
         </div>
     </div>
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue'
-import axios from 'axios'
-import { useRouter } from 'vue-router'
+import { ref } from 'vue'
+import { useAuthStore } from '@/stores/auth'
 
-const router = useRouter()
+const authStore = useAuthStore()
 
-const form = reactive({
+const form = ref({
     name: '',
     email: '',
     password: '',
     password_confirmation: ''
 })
-
-const getToken = async () => {
-    await axios.get('/sanctum/csrf-cookie')
-}
-
-const register = async () => {
-    await getToken()
-    await axios.post('/register', form);
-
-    await router.push('/login');
-}
-
 </script>
