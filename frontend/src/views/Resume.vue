@@ -43,11 +43,12 @@
                         </div>
                         <div class="mt-4">
                             <h1 class="text-lg font-semibold">Job Responsibilities:</h1>
-                            <p>{{ resume?.job_responsibilities }}</p>
+                            <!-- <p>{{ resume?.job_responsibilities }}</p> -->
+                            <p v-for="jobResponsibility in jobResponsibilitiesArray">{{ jobResponsibility }}</p>
                         </div>
                         <div class="mt-4">
                             <h1 class="text-lg font-semibold">Job Achievements:</h1>
-                            <p>{{ resume?.job_achievements }}</p>
+                            <p v-for="jobAchievement in jobAchievementsArray">{{ jobAchievement }}</p>
                         </div>
                     </div>
                 </div>
@@ -72,6 +73,14 @@ const route = useRoute();
 let resume = ref<Resume | null>(null);
 let isLoading = ref<boolean>(true);
 let imagePath = ref<string>('');
+
+let jobResponsibilitiesArray = computed(() => {
+    return resume.value?.job_responsibilities.split('. ');
+});
+
+let jobAchievementsArray = computed(() => {
+    return resume.value?.job_achievements.split('. ');
+});
 
 const id = route.params.id;
 

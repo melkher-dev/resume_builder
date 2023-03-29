@@ -66,7 +66,7 @@
                     </div>
 
                     <div>
-                        <div v-for="(company, index) in form.companies" :key="index" class="grid grid-cols-5">
+                        <div v-for="(company, index) in form.companies" :key="index" class="grid grid-cols-7">
                             <div class="col-span-2 mx-1">
                                 <label class="label">
                                     <span class="label-text">Company name</span>
@@ -79,6 +79,13 @@
                                     <span class="label-text">Position held</span>
                                 </label>
                                 <input v-model="company.position_held" type="text"
+                                    class="input input-bordered input-primary w-full max-w-lg" />
+                            </div>
+                            <div class="col-span-2 mx-1">
+                                <label class="label">
+                                    <span class="label-text">Years</span>
+                                </label>
+                                <input v-model="company.years" type="text"
                                     class="input input-bordered input-primary w-full max-w-lg" />
                             </div>
                             <div class="col-span-1">
@@ -136,7 +143,8 @@ const form = reactive({
     image_path: '',
     companies: [{
         company_name: '',
-        position_held: ''
+        position_held: '',
+        years: ''
     }],
 })
 

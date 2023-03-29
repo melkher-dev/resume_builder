@@ -29,7 +29,7 @@
                         <p>Technologies: {{ resume.technologies }}</p>
                         <p>Company: {{ resume.companies[0].company_name }}</p>
                         <div class="card-actions justify-center">
-                            <router-link :to="`/resume/${resume.id}`" class="btn btn-primary btn-outline btn-sm nav-link">More</router-link>
+                            <router-link :to="`/resume/${resume.id}`" class="btn btn-primary btn-outline btn-sm nav-link">Show</router-link>
                         </div>
                     </div>
                 </div>

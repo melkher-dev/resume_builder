@@ -95,18 +95,23 @@ class ResumeController extends Controller
             . 'years). I write in the technologies: ' . $resume['technologies']
             . '. Can you write 10 points for a resume on what I am good at?';
 
+        $jobAchievements = 'I am writing a resume, my details are name:' . $resume['full_name']
+            . ' role: ' . $resume['current_position'] . ' (' . $resume['experience']
+            .   'years). During my years I worked at ';
+
         foreach ($resume['companies'] as $company) {
-            $jobAchievements = 'I am writing a resume, my details are name:' . $resume['full_name']
-                . ' role: ' . $resume['current_position'] . ' (' . $resume['experience']
-                .   'years). During my years I worked at '
-                . strval($company['company_name']) . ' as a ' . strval($company['position_held'])
-                . '. Can you write me 50 words for each company separated in numbers of my succession in the company (in first person)?';
+            $jobAchievements .= strval($company['company_name']) . ' as a '
+                . strval($company['position_held']) . ' for '
+                . strval($company['years']) . ' years. ';
         }
 
+        $jobAchievements .= 'Can you write me 50 words for each company separated in numbers and on new row of my succession in the company (in first person)?';
 
         $jobDescriptionResult = resolve(GPTService::class)->generate($jobDescription);
         $jobResponsibilitiesResult = resolve(GPTService::class)->generate($jobResponsibilities);
         $jobAchievementsResult = resolve(GPTService::class)->generate($jobAchievements);
+
+        // dd($jobDescriptionResult, $jobResponsibilitiesResult, $jobAchievementsResult);
 
         $newResume  = new Resume();
         $newResume->user_id = $user->id;
